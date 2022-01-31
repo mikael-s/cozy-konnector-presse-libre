@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "name": "La Presse Libre",
+  "type": "konnector",
+  "language": "node",
+  "icon": "icon.png",
+  "slug": "presse-libre",
+  "source": "git@github.com:mikael-s/presse-libre.git",
+  "editor": "Cozy",
+  "vendor_link": "https://beta.lapresselibre.fr/",
+  "categories": ["other"],
+  "fields": {
+    "login": {
+      "type": "text"
+    },
+    "password": {
+      "type": "password"
+    }
+  },
+  "folders": [{"defaultDir": "$administrative/$konnector/$account"}],
+  "data_types": [
+    "bill"
+  ],
+  "screenshots": [],
+  "permissions": {
+    "bills": {
+      "type": "io.cozy.bills"
+    },
+    "files": {
+      "type": "io.cozy.files"
+    },
+    "accounts": {
+      "type": "io.cozy.accounts"
+    }
+  },
+  "developer": {
+    "name": "Mikaël Salson",
+    "url": "https://github.com/mikael-s"
+  },
+  "langs": ["fr", "en"],
+  "locales": {
+    "fr": {
+      "short_description": "Récupère la liste de factures",
+      "long_description": "Récupère la liste de factures sur le site La Presse Libre",
+      "permissions": {
+        "bills": {
+          "description": "Utilisé pour sauver les données des factures"
+        },
+        "files": {
+          "description": "Utilisé pour sauvegarder les factures"
+        },
+        "accounts": {
+          "description": "Utilisé pour obtenir les données du compte"
+        }
+      }
+    },
+    "en": {
+      "short_description": "Fetch a list of invoices",
+      "long_description": "Fetch a list of invoices from La Presse Libre",
+      "permissions": {
+        "bills": {
+          "description": "Required to save the bills data"
+        },
+        "files": {
+          "description": "Required to save the bills"
+        },
+        "accounts": {
+          "description": "Required to get the account's data"
+        }
+      }
+    }
+  },
+  "banksTransactionRegExp": "\\bInpact Media\\b",
+  "manifest_version": "2"
+}
