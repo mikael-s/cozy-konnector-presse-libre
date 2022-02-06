@@ -4,11 +4,11 @@
   "type": "konnector",
   "language": "node",
   "icon": "icon.png",
-  "slug": "presse-libre",
+  "slug": "presselibre",
   "source": "git@github.com:mikael-s/presse-libre.git",
   "editor": "Cozy",
   "vendor_link": "https://beta.lapresselibre.fr/",
-  "categories": ["other"],
+  "categories": ["press"],
   "fields": {
     "login": {
       "type": "text"
