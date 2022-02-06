@@ -57,7 +57,8 @@ async function start(fields, cozyParameters) {
   // // but this is the most common case in connectors
   log('info', 'Saving data to Cozy')
   await this.saveBills(documents, fields, {
-    identifiers: ['Inpact Media']
+    identifiers: ['Inpact Media'],
+    contentType: true
   })
 }
 
