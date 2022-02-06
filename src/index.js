@@ -2,7 +2,9 @@ const {
   BaseKonnector,
   requestFactory,
   scrape,
-  log
+  log,
+  htmlToPDF,
+  createCozyPDFDocument
 } = require('cozy-konnector-libs')
 const request = requestFactory({
   // The debug mode shows all the details about HTTP requests and responses. Very useful for
@@ -77,7 +79,7 @@ async function authenticate(username, password) {
 // The goal of this function is to parse a HTML page wrapped by a cheerio instance
 // and return an array of JS objects which will be saved to the cozy by saveBills
 // (https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills)
-function parseDocuments($, login) {
+async function parseDocuments($, login) {
   // You can find documentation about the scrape function here:
   // https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape
   const refContract = login
@@ -102,17 +104,36 @@ function parseDocuments($, login) {
     },
     '#facturation-infos tbody tr'
   )
-  return docs.map(doc => ({
-    ...doc,
-    refContract,
-    date: doc.date,
-    currency: '€',
-    filename: `${formatDate(doc.date)}_${doc.amount}EUR_${doc.billNumber}.pdf`,
-    vendorRef: doc.billNumber,
-    amount: parseFloat(doc.amount),
-    fileurl: `${baseUrl}/${doc.billPath}`,
-    vendor: VENDOR
-  }))
+  return await Promise.all(
+    docs.map(async doc => ({
+      ...doc,
+      refContract,
+      date: doc.date,
+      currency: '€',
+      filename: `${formatDate(doc.date)}_${doc.amount}EUR_${
+        doc.billNumber
+      }.pdf`,
+      fetchFile: createPDFBill,
+      vendorRef: doc.billNumber,
+      amount: parseFloat(doc.amount),
+      fileurl: `${baseUrl}${doc.billPath}`,
+      vendor: VENDOR
+    }))
+  )
+}
+
+async function createPDFBill(entry) {
+  const url = entry.fileurl
+  const doc = createCozyPDFDocument(
+    'Généré automatiquement par le connecteur Cozy « La Presse Libre » depuis la page',
+    url
+  )
+  const $ = await request(url)
+  htmlToPDF($, doc, $('#facture'), {
+    baseURL: url
+  })
+  doc.end()
+  return doc
 }
 
 function normalizeDate(date) {
