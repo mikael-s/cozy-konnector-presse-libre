@@ -4,7 +4,7 @@
   "description": "Cozy Konnector for Presse Libre",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mikael-s/presse-libre.git"
+    "url": "git@github.com:mikael-s/cozy-konnector-presse-libre.git"
   },
   "keywords": [],
   "author": "Cozy Cloud",
