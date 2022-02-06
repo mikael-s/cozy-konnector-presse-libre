@@ -5,7 +5,7 @@
   "language": "node",
   "icon": "icon.png",
   "slug": "presselibre",
-  "source": "git@github.com:mikael-s/presse-libre.git",
+  "source": "git@github.com:mikael-s/cozy-konnector-presse-libre.git",
   "editor": "Cozy",
   "vendor_link": "https://beta.lapresselibre.fr/",
   "categories": ["press"],
